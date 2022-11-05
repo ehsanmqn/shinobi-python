@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "shinobi-python"
+version = "0.0.1"
+description = "A Python package for intacting with the Shinobi (an open-source video management solution)"
+
+license = "MIT"
+
+authors = [
+    "Ehsan Maiqani <ehsan.maiqani@gmail.com>"
+]
+
+readme = "README.md"
+requires-python = ">=3.1"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ehsanmqn/shinobi-python"
+"Bug Tracker" = "https://github.com/ehsanmqn/shinobi-python/issues"
+
+keywords = ["shinobi", "python", "shinobi-python"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
