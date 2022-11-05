@@ -10,5 +10,5 @@ This package contains set of functions for interacting with Shinobi in Python. T
 ## Installation
 Install from [PyPi](https://pypi.org/project/shinobi-client/):
 ```bash
-pip install shinobi_python
+pip install shinobi-python
 ```
