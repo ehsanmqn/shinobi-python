@@ -1,4 +1,4 @@
-# Python package for shiobi CCTV
+# Python package for shinobi CCTV
 _A Python package acting as library for the [Shinobi](https://gitlab.com/Shinobi-Systems/Shinobi) (an open-source video management 
 solution) API._
 
