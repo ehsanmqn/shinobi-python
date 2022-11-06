@@ -12,7 +12,6 @@ class Super:
     token: str = None
     email: str = None
     password: str = None
-    apikey: str = None
 
     def __init__(self, host, port, apikey=None, email=None, password=None):
         self.host = host
@@ -38,6 +37,8 @@ class Admin:
     token: str = None
     email: str = None
     password: str = None
+    group_key: str = None
+    uid: str = None
 
     def __init__(self, host, port, apikey=None, email=None, password=None):
         self.host = host
@@ -49,7 +50,6 @@ class Admin:
             self.email = email
             self.password = password
 
-    @property()
     def url(self):
         return f"http://{self.host}:{self.port}?json=true"
 
@@ -72,8 +72,28 @@ class Admin:
 
         jsonify = response.json()
         self.token = jsonify["auth_token"]
+        self.group_key = jsonify["ke"]
+        self.uid = jsonify["uid"]
 
         return jsonify["auth_token"]
 
+    class APIKey():
+        def list():
+            url = "{}/{}/api/{}/list".format(self.url(), self.token, self.group_key)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            return response.json()["keys"]
+        
+        def add():
+            pass
+
+        def delete():
+            pass
     
+    
+
 
