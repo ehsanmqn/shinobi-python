@@ -77,7 +77,7 @@ class Admin:
 
         return jsonify["auth_token"]
 
-    class APIKey():
+    class APIKey:
         def list():
             url = "{}/{}/api/{}/list".format(self.url(), self.token, self.group_key)
 
@@ -142,4 +142,18 @@ class Admin:
 
             return True
 
+    class Monitor:
+        def list():
+            pass
 
+        def add():
+            pass
+
+        def update():
+            pass
+
+        def delete():
+            pass
+
+        def get():
+            pass
