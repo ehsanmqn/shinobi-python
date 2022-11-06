@@ -161,3 +161,19 @@ class Admin:
     class TVChannel:
         def list():
             pass
+    
+    class Stream:
+        def jpeg():
+            pass
+
+        def mjpeg():
+            pass
+
+        def hls():
+            pass
+
+        def flv():
+            pass
+
+        def mp4():
+            pass
