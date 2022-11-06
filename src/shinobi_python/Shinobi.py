@@ -53,6 +53,10 @@ class Admin:
     def url(self):
         return f"http://{self.host}:{self.port}?json=true"
 
+    """
+    Login to Shinobi using user credentials
+    When you authenticate with Shinobi it will offer you an Authorization Token. This token is your Session Key as well and can be used as an API Key. This key will remain active for 15 minutes after the last acivity or while your WebSocket is connected.
+    """
     def authenticate(self):
         url = self.url()
 
@@ -77,7 +81,13 @@ class Admin:
 
         return jsonify["auth_token"]
 
+    """
+    API Key management class
+    """
     class APIKey:
+        """
+        Get API Keys
+        """
         def list():
             url = "{}/{}/api/{}/list".format(self.url(), self.token, self.group_key)
 
@@ -91,6 +101,10 @@ class Admin:
 
             return response.json()["keys"]
         
+        """
+        Add an API Key
+        The created key is binded to the user who created it.
+        """
         def add(ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
             url = "{}/{}/api/{}/add".format(self.url(), self.token, self.group_key)
 
@@ -121,7 +135,9 @@ class Admin:
 
             return response.json()["api"]
 
-
+        """
+        Delete an API Key
+        """
         def delete(code):
             url = "{}/{}/api/{}/delete".format(self.url(), self.token, self.group_key)
 
@@ -142,60 +158,99 @@ class Admin:
 
             return True
 
+    """
+    Monitor management class
+    """
     class Monitor:
+        """
+        Get all saved monitors
+        """
         def list():
             pass
-
+        
+        """
+         Add a monitor
+        """
         def add():
             pass
-
+        
+        """
+        Update a single monitor by ID
+        """
         def update():
             pass
-
+        
+        """
+        Delete a monitor by ID
+        """
         def delete():
             pass
-
+        
+        """
+        Get a single monitor by ID
+        and it will have a set of stream links already pre-built in the streams variable.
+        """
         def get():
             pass
-    
-    class TVChannel:
-        def list():
-            pass
-    
-    class Stream:
-        def jpeg():
-            pass
-
-        def mjpeg():
+        
+        """
+        Get all available h.264 streams in an .m3u8 playlist
+        Enable the TV Channel option in your monitor's settings to see their streams in this list.
+        """
+        def get_all_streams():
             pass
 
-        def hls():
+        """
+        Get a single monitor's available h.264 streams in an .m3u8 playlist
+        Enable the TV Channel option in your monitor's settings to see their streams in this list.
+        """
+        def get_all_streams():
             pass
 
+        """
+        JPEG Snapshot
+        Snapshot must be enabled in Monitor Settings.
+        """
+        def jpeg_snapshot():
+            pass
+        
+        """
+        MJPEG Stream
+        Stream type must be MJPEG.
+        """
+        def mjpeg_stream():
+            pass
+
+        """
+        MJPEG Stream for iframe
+        """
+        def mjpeg_stream_iframe():
+            pass
+
+        """
+        m3u8 for HLS Stream
+        Stream type must be HLS.
+        """
+        def m3u8_stream():
+            pass
+        
+        """
+        FLV Stream
+        Stream type must be FLV.
+        """
         def flv():
             pass
-
+        
+        """
+        Poseidon (MP4) Stream
+        Stream type must be Poesidon.
+        """
         def mp4():
             pass
 
-    class Monitor:
-        def list():
-            pass
-
-        def get():
-            pass
-
-        def download():
-            pass
-
-        def delete():
-            pass
-
-        def mark_as_unread():
-            pass
-
-        def mark_as_read():
-            pass
-
-        def download_multiple():
+        """
+        Poseidon (MP4) Stream
+        This function provides the link for a Poseidon stream but on a channel aside from the Main one. You can create Stream Channels by opening your Monitor Settings, clicking Options, and then selecting Add Channel.
+        """
+        def stream_channels():
             pass
