@@ -68,7 +68,7 @@ class Admin:
         response = requests.request("POST", url, headers=headers, data=payload)
 
         if response.status_code != 200:
-            raise ValueError("A problem happened in deleting user in chat service")
+            raise ValueError("Problem in login")
 
         jsonify = response.json()
         self.token = jsonify["auth_token"]
@@ -86,10 +86,41 @@ class Admin:
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
+            if response.status_code != 200:
+                raise ValueError("Problem in getting API Key")
+
             return response.json()["keys"]
         
-        def add():
-            pass
+        def add(ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
+            url = "{}/{}/api/{}/add".format(self.url(), self.token, self.group_key)
+
+            payload = json.dumps({
+                "data": {
+                    "ip": "0.0.0.0",
+                    "details": {
+                        "auth_socket": "1",
+                        "get_monitors": "1",
+                        "control_monitors": "1",
+                        "get_logs": "1",
+                        "watch_stream": "1",
+                        "watch_snapshot": "1",
+                        "watch_videos": "1",
+                        "delete_videos": "1"
+                    }
+                }
+            })
+            
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            if response.status_code != 200:
+                raise ValueError("Problem in adding API Key")
+
+            response = requests.request("POST", url, headers=headers, data=payload)
+
+            return response.json()["api"]
+
 
         def delete():
             pass
