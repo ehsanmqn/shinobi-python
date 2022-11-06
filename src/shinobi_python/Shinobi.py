@@ -157,3 +157,7 @@ class Admin:
 
         def get():
             pass
+    
+    class TVChannel:
+        def list():
+            pass
