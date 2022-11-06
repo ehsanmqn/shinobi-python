@@ -122,9 +122,24 @@ class Admin:
             return response.json()["api"]
 
 
-        def delete():
-            pass
+        def delete(code):
+            url = "{}/{}/api/{}/delete".format(self.url(), self.token, self.group_key)
+
+            payload = json.dumps({
+                "data": {
+                    "code": code
+                }
+            })
+
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            response = requests.request("POST", url, headers=headers, data=payload)
     
-    
+            if response.status_code != 200:
+                raise ValueError("Problem in adding API Key")
+
+            return True
 
 
