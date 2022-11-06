@@ -177,3 +177,25 @@ class Admin:
 
         def mp4():
             pass
+
+    class Monitor:
+        def list():
+            pass
+
+        def get():
+            pass
+
+        def download():
+            pass
+
+        def delete():
+            pass
+
+        def mark_as_unread():
+            pass
+
+        def mark_as_read():
+            pass
+
+        def download_multiple():
+            pass
