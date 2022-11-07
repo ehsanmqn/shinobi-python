@@ -564,6 +564,23 @@ class Admin:
         Stream type must be MJPEG.
         """
         def mjpeg(monitor_id):
+            url = "{}/{}/mjpeg/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting stream from monitor with id {}".format(monitor_id))
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            return response
+
+        """
+        Get MJPEG Stream for iframe
+        Stream type must be MJPEG.
+        """
+        def mjpeg_iframe(monitor_id):
             url = "{}/{}/mjpeg/{}/{}?full=true".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
