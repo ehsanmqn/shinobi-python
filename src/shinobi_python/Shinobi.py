@@ -523,7 +523,25 @@ class Admin:
                 raise ValueError("Problem in getting monitor with id {}".format(uid))
 
             return response.json()
+        
+        def tv_channels(uid=None):
 
+            if uid is None:
+                url = "{}/{}/tvChannels/{}".format(self.url(), self.token, self.group_key)
+            else:
+                url = "{}/{}/tvChannels/{}/{}".format(self.url(), self.token, self.group_key, uid)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting monitor with id {}".format(uid))
+
+            return response.json()
+
+    class Stream:
         """
         Get JPEG Snapshot
         Snapshot must be enabled in Monitor Settings.
@@ -609,7 +627,6 @@ class Admin:
 
             return response
 
-    class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
