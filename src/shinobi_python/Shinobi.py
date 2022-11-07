@@ -537,7 +537,7 @@ class Admin:
             response = requests.request("GET", url, headers=headers, data=payload)
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting monitor with id {}".format(uid))
+                raise ValueError("Problem in getting stream")
 
             return response.json()
 
@@ -629,17 +629,24 @@ class Admin:
 
         """
         Get all available h.264 streams in an .m3u8 playlist
-        Enable the TV Channel option in your monitor's settings to see their streams in this list.
-        """
-        def list():
-            pass
-
-        """
         Get a single monitor's available h.264 streams in an .m3u8 playlist
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
         """
-        def get_all_streams(monitor_id):
-            pass
+        def list(monitor_id=None):
+            if uid is None:
+                url = "{}/{}/tvChannels/{}".format(self.url(), self.token, self.group_key)
+            else:
+                url = "{}/{}/tvChannels/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting stream")
+
+            return response.json()
 
         """
         MJPEG Stream for iframe
