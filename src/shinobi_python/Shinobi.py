@@ -666,14 +666,18 @@ class Admin:
             return response.json()
 
         """
-        MJPEG Stream for iframe
-        """
-        def mjpeg_stream_iframe():
-            pass
-
-        """
         Poseidon (MP4) Stream
         This function provides the link for a Poseidon stream but on a channel aside from the Main one. You can create Stream Channels by opening your Monitor Settings, clicking Options, and then selecting Add Channel.
         """
-        def stream_channels():
-            pass
+        def stream_channels(monitor_id, channel):
+            url = "{}/{}/mp4/{}/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id, channel)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting stream channels from monitor with id {}".format(monitor_id))
+
+            return response
