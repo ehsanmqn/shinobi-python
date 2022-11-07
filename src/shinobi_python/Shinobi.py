@@ -545,7 +545,7 @@ class Admin:
         Get MJPEG Stream
         Stream type must be MJPEG.
         """
-        def mjpeg_stream(monitor_id):
+        def mjpeg(monitor_id):
             url = "{}/{}/mjpeg/{}/{}?full=true".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
