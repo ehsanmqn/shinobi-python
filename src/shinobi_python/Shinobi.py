@@ -475,8 +475,21 @@ class Admin:
         """
         Update a single monitor by ID
         """
-        def update():
-            pass
+        def update(uid, data):
+            url = "{}/{}/configureMonitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
+
+            payload = json.dumps(data)
+
+            headers = {
+            'Content-Type': 'application/json'
+            }
+
+            response = requests.request("PUT", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
+
+            return response.json()["ok"]
         
         """
         Delete a monitor by ID
