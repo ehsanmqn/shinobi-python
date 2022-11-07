@@ -511,8 +511,8 @@ class Admin:
         Get a single monitor by ID
         and it will have a set of stream links already pre-built in the streams variable.
         """
-        def get(monitor_id):
-            url = "{}/{}/monitor/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
+        def get(uid):
+            url = "{}/{}/monitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload={}
             headers = {}
@@ -520,10 +520,45 @@ class Admin:
             response = requests.request("GET", url, headers=headers, data=payload)
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
+                raise ValueError("Problem in getting monitor with id {}".format(uid))
 
             return response.json()
-    
+
+        """
+        JPEG Snapshot
+        Snapshot must be enabled in Monitor Settings.
+        """
+        def jpeg_snapshot(monitor_id):
+            url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting snapshot from monitor with id {}".format(uid))
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            return response
+        
+        """
+        MJPEG Stream
+        Stream type must be MJPEG.
+        """
+        def mjpeg_stream(monitor_id):
+            url = "{}/{}/mjpeg/{}/{}?full=true".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting stream from monitor with id {}".format(uid))
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            return response
+
+
     class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
@@ -537,27 +572,6 @@ class Admin:
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
         """
         def get_all_streams():
-            pass
-
-        """
-        JPEG Snapshot
-        Snapshot must be enabled in Monitor Settings.
-        """
-        def jpeg_snapshot():
-            url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
-
-            payload={}
-            headers = {}
-
-            response = requests.request("GET", url, headers=headers, data=payload)
-
-            return response
-        
-        """
-        MJPEG Stream
-        Stream type must be MJPEG.
-        """
-        def mjpeg_stream():
             pass
 
         """
