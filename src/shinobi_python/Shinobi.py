@@ -528,7 +528,7 @@ class Admin:
         Get JPEG Snapshot
         Snapshot must be enabled in Monitor Settings.
         """
-        def jpeg_snapshot(monitor_id):
+        def jpeg(monitor_id):
             url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
