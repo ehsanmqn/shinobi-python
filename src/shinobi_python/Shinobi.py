@@ -523,12 +523,13 @@ class Admin:
                 raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
 
             return response.json()
-        
+    
+    class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
         """
-        def get_all_streams():
+        def list():
             pass
 
         """
@@ -543,7 +544,14 @@ class Admin:
         Snapshot must be enabled in Monitor Settings.
         """
         def jpeg_snapshot():
-            pass
+            url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            return response
         
         """
         MJPEG Stream
