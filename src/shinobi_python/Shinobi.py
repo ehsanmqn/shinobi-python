@@ -468,7 +468,7 @@ class Admin:
             response = requests.request("POST", url, headers=headers, data=payload)
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
+                raise ValueError("Problem in adding monitor with id {}".format(uid))
 
             return response.json()["ok"]
         
@@ -487,15 +487,25 @@ class Admin:
             response = requests.request("PUT", url, headers=headers, data=payload)
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
+                raise ValueError("Problem in updating monitor with id {}".format(uid))
 
             return response.json()["ok"]
         
         """
         Delete a monitor by ID
         """
-        def delete():
-            pass
+        def delete(uid):
+            url = "{}/{}/configureMonitor/{}/{}/delete".format(self.url(), self.token, self.group_key, uid)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("DELETE", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in deleting monitor with id {}".format(uid))
+
+            return response.json()["ok"]
         
         """
         Get a single monitor by ID
