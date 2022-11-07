@@ -558,6 +558,22 @@ class Admin:
 
             return response
 
+        """
+        m3u8 for HLS Stream
+        Stream type must be HLS.
+        """
+        def hls_stream(monitor_id):
+            url = "{}/{}/hls/{}/{}/s.m3u8".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting stream from monitor with id {}".format(uid))
+
+                return response
 
     class Stream:
         """
@@ -580,12 +596,7 @@ class Admin:
         def mjpeg_stream_iframe():
             pass
 
-        """
-        m3u8 for HLS Stream
-        Stream type must be HLS.
-        """
-        def m3u8_stream():
-            pass
+        
         
         """
         FLV Stream
