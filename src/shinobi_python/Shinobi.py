@@ -166,7 +166,17 @@ class Admin:
         Get all saved monitors
         """
         def list():
-            pass
+            url = "{}/{}/monitor/{}".format(self.url(), self.token, self.group_key)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting monitors")
+
+            return response.json()
         
         """
          Add a monitor
