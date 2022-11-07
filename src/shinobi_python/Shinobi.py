@@ -200,8 +200,18 @@ class Admin:
         Get a single monitor by ID
         and it will have a set of stream links already pre-built in the streams variable.
         """
-        def get():
-            pass
+        def get(monitor_id):
+            url = "{}/{}/monitor/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting monitor with id {}".format(monitor_id))
+
+            return response.json()
         
         """
         Get all available h.264 streams in an .m3u8 playlist
