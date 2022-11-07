@@ -562,7 +562,7 @@ class Admin:
         Get m3u8 for HLS Stream
         Stream type must be HLS.
         """
-        def hls_stream(monitor_id):
+        def hls(monitor_id):
             url = "{}/{}/hls/{}/{}/s.m3u8".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -591,7 +591,7 @@ class Admin:
                 raise ValueError("Problem in getting FLV stream from monitor with id {}".format(monitor_id))
 
             return response
-            
+
     class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
