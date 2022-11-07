@@ -592,6 +592,23 @@ class Admin:
 
             return response
 
+        """
+        Poseidon (MP4) Stream
+        Stream type must be Poesidon.
+        """
+        def mp4(monitor_id):
+            url = "{}/{}/mp4/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting MP4 stream from monitor with id {}".format(monitor_id))
+
+            return response
+
     class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
@@ -611,13 +628,6 @@ class Admin:
         MJPEG Stream for iframe
         """
         def mjpeg_stream_iframe():
-            pass
-        
-        """
-        Poseidon (MP4) Stream
-        Stream type must be Poesidon.
-        """
-        def mp4():
             pass
 
         """
