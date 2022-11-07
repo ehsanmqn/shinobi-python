@@ -525,7 +525,7 @@ class Admin:
             return response.json()
 
         """
-        JPEG Snapshot
+        Get JPEG Snapshot
         Snapshot must be enabled in Monitor Settings.
         """
         def jpeg_snapshot(monitor_id):
@@ -535,14 +535,14 @@ class Admin:
             headers = {}
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting snapshot from monitor with id {}".format(uid))
+                raise ValueError("Problem in getting snapshot from monitor with id {}".format(monitor_id))
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
             return response
         
         """
-        MJPEG Stream
+        Get MJPEG Stream
         Stream type must be MJPEG.
         """
         def mjpeg_stream(monitor_id):
@@ -552,14 +552,14 @@ class Admin:
             headers = {}
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting stream from monitor with id {}".format(uid))
+                raise ValueError("Problem in getting stream from monitor with id {}".format(monitor_id))
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
             return response
 
         """
-        m3u8 for HLS Stream
+        Get m3u8 for HLS Stream
         Stream type must be HLS.
         """
         def hls_stream(monitor_id):
@@ -571,10 +571,27 @@ class Admin:
             response = requests.request("GET", url, headers=headers, data=payload)
 
             if response.status_code != 200:
-                raise ValueError("Problem in getting stream from monitor with id {}".format(uid))
+                raise ValueError("Problem in getting HLS stream from monitor with id {}".format(monitor_id))
 
-                return response
+            return response
 
+        """
+        Get FLV Stream
+        Stream type must be FLV.
+        """
+        def flv():
+            url = "{}/{}/flv/{}/{}/s.flv".format(self.url(), self.token, self.group_key, monitor_id)
+
+            payload={}
+            headers = {}
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+            if response.status_code != 200:
+                raise ValueError("Problem in getting FLV stream from monitor with id {}".format(monitor_id))
+
+            return response
+            
     class Stream:
         """
         Get all available h.264 streams in an .m3u8 playlist
@@ -587,22 +604,13 @@ class Admin:
         Get a single monitor's available h.264 streams in an .m3u8 playlist
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
         """
-        def get_all_streams():
+        def get_all_streams(monitor_id):
             pass
 
         """
         MJPEG Stream for iframe
         """
         def mjpeg_stream_iframe():
-            pass
-
-        
-        
-        """
-        FLV Stream
-        Stream type must be FLV.
-        """
-        def flv():
             pass
         
         """
