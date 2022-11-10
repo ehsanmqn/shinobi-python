@@ -102,7 +102,7 @@ class Admin:
 
             return response.json()["keys"]
 
-        def add(self, ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
+        def add(self, ip_addr, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
             """
             Add an API Key
             The created key is binded to the user who created it.
@@ -111,16 +111,16 @@ class Admin:
 
             payload = json.dumps({
                 "data": {
-                    "ip": "0.0.0.0",
+                    "ip": ip_addr,
                     "details": {
-                        "auth_socket": "1",
-                        "get_monitors": "1",
-                        "control_monitors": "1",
-                        "get_logs": "1",
-                        "watch_stream": "1",
-                        "watch_snapshot": "1",
-                        "watch_videos": "1",
-                        "delete_videos": "1"
+                        "auth_socket": auth_socket,
+                        "get_monitors": get_monitors,
+                        "control_monitors": control_monitors,
+                        "get_logs": get_logs,
+                        "watch_stream": watch_stream,
+                        "watch_snapshot": watch_snapshot,
+                        "watch_videos": watch_videos,
+                        "delete_videos": delete_videos
                     }
                 }
             })
