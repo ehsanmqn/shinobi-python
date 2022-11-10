@@ -88,7 +88,7 @@ class Admin:
         """
         Get API Keys
         """
-        def list():
+        def list(self):
             url = "{}/{}/api/{}/list".format(self.url(), self.token, self.group_key)
 
             payload={}
@@ -100,12 +100,12 @@ class Admin:
                 raise ValueError("Problem in getting API Key")
 
             return response.json()["keys"]
-        
+
         """
         Add an API Key
         The created key is binded to the user who created it.
         """
-        def add(ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
+        def add(self, ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
             url = "{}/{}/api/{}/add".format(self.url(), self.token, self.group_key)
 
             payload = json.dumps({
@@ -123,22 +123,22 @@ class Admin:
                     }
                 }
             })
-            
+
             headers = {
                 'Content-Type': 'application/json'
             }
 
+            response = requests.request("POST", url, headers=headers, data=payload)
+
             if response.status_code != 200:
                 raise ValueError("Problem in adding API Key")
-
-            response = requests.request("POST", url, headers=headers, data=payload)
 
             return response.json()["api"]
 
         """
         Delete an API Key
         """
-        def delete(code):
+        def delete(self, code):
             url = "{}/{}/api/{}/delete".format(self.url(), self.token, self.group_key)
 
             payload = json.dumps({
@@ -152,7 +152,7 @@ class Admin:
             }
 
             response = requests.request("POST", url, headers=headers, data=payload)
-    
+
             if response.status_code != 200:
                 raise ValueError("Problem in adding API Key")
 
@@ -165,7 +165,7 @@ class Admin:
         """
         Get all saved monitors
         """
-        def list():
+        def list(self):
             url = "{}/{}/monitor/{}".format(self.url(), self.token, self.group_key)
 
             payload={}
@@ -177,11 +177,11 @@ class Admin:
                 raise ValueError("Problem in getting monitors")
 
             return response.json()
-        
+
         """
          Add a monitor
         """
-        def add(uid, name, host, port, username=None, password=None):
+        def add(self, uid, name, host, port, username=None, password=None):
             url = "{}/{}/configureMonitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload = json.dumps({
@@ -471,11 +471,11 @@ class Admin:
                 raise ValueError("Problem in adding monitor with id {}".format(uid))
 
             return response.json()["ok"]
-        
+
         """
         Update a single monitor by ID
         """
-        def update(uid, data):
+        def update(self, uid, data):
             url = "{}/{}/configureMonitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload = json.dumps(data)
@@ -490,11 +490,11 @@ class Admin:
                 raise ValueError("Problem in updating monitor with id {}".format(uid))
 
             return response.json()["ok"]
-        
+
         """
         Delete a monitor by ID
         """
-        def delete(uid):
+        def delete(self, uid):
             url = "{}/{}/configureMonitor/{}/{}/delete".format(self.url(), self.token, self.group_key, uid)
 
             payload={}
@@ -506,12 +506,12 @@ class Admin:
                 raise ValueError("Problem in deleting monitor with id {}".format(uid))
 
             return response.json()["ok"]
-        
+
         """
         Get a single monitor by ID
         and it will have a set of stream links already pre-built in the streams variable.
         """
-        def get(uid):
+        def get(self, uid):
             url = "{}/{}/monitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload={}
@@ -523,8 +523,8 @@ class Admin:
                 raise ValueError("Problem in getting monitor with id {}".format(uid))
 
             return response.json()
-        
-        def tv_channels(uid=None):
+
+        def tv_channels(self, uid=None):
 
             if uid is None:
                 url = "{}/{}/tvChannels/{}".format(self.url(), self.token, self.group_key)
@@ -546,33 +546,33 @@ class Admin:
         Get JPEG Snapshot
         Snapshot must be enabled in Monitor Settings.
         """
-        def jpeg(monitor_id):
+        def jpeg(self, monitor_id):
             url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
             headers = {}
 
+            response = requests.request("GET", url, headers=headers, data=payload)
+
             if response.status_code != 200:
                 raise ValueError("Problem in getting snapshot from monitor with id {}".format(monitor_id))
 
-            response = requests.request("GET", url, headers=headers, data=payload)
-
             return response
-        
+
         """
         Get MJPEG Stream
         Stream type must be MJPEG.
         """
-        def mjpeg(monitor_id):
+        def mjpeg(self, monitor_id):
             url = "{}/{}/mjpeg/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
             headers = {}
 
+            response = requests.request("GET", url, headers=headers, data=payload)
+
             if response.status_code != 200:
                 raise ValueError("Problem in getting stream from monitor with id {}".format(monitor_id))
-
-            response = requests.request("GET", url, headers=headers, data=payload)
 
             return response
 
@@ -580,16 +580,16 @@ class Admin:
         Get MJPEG Stream for iframe
         Stream type must be MJPEG.
         """
-        def mjpeg_iframe(monitor_id):
+        def mjpeg_iframe(self, monitor_id):
             url = "{}/{}/mjpeg/{}/{}?full=true".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
             headers = {}
 
+            response = requests.request("GET", url, headers=headers, data=payload)
+
             if response.status_code != 200:
                 raise ValueError("Problem in getting stream from monitor with id {}".format(monitor_id))
-
-            response = requests.request("GET", url, headers=headers, data=payload)
 
             return response
 
@@ -597,7 +597,7 @@ class Admin:
         Get m3u8 for HLS Stream
         Stream type must be HLS.
         """
-        def hls(monitor_id):
+        def hls(self, monitor_id):
             url = "{}/{}/hls/{}/{}/s.m3u8".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -614,7 +614,7 @@ class Admin:
         Get FLV Stream
         Stream type must be FLV.
         """
-        def flv():
+        def flv(self):
             url = "{}/{}/flv/{}/{}/s.flv".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -631,7 +631,7 @@ class Admin:
         Poseidon (MP4) Stream
         Stream type must be Poesidon.
         """
-        def mp4(monitor_id):
+        def mp4(self, monitor_id):
             url = "{}/{}/mp4/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -649,8 +649,8 @@ class Admin:
         Get a single monitor's available h.264 streams in an .m3u8 playlist
         Enable the TV Channel option in your monitor's settings to see their streams in this list.
         """
-        def list(monitor_id=None):
-            if uid is None:
+        def list(self, monitor_id=None):
+            if monitor_id is None:
                 url = "{}/{}/tvChannels/{}".format(self.url(), self.token, self.group_key)
             else:
                 url = "{}/{}/tvChannels/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
@@ -669,7 +669,7 @@ class Admin:
         Poseidon (MP4) Stream
         This function provides the link for a Poseidon stream but on a channel aside from the Main one. You can create Stream Channels by opening your Monitor Settings, clicking Options, and then selecting Add Channel.
         """
-        def stream_channels(monitor_id, channel):
+        def stream_channels(self, monitor_id, channel):
             url = "{}/{}/mp4/{}/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id, channel)
 
             payload={}
