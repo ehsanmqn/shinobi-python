@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-@dataclass()
+@dataclass
 class ApiKey:
     """
-    API key model.
+    API key data model.
     """
     ip_addr: str
     auth_socket: bool
