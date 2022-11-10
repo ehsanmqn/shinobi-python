@@ -2,7 +2,6 @@ import requests
 import json
 from dataclasses import dataclass
 
-
 class Super:
     """
     Shinobi Super user APIs
@@ -81,7 +80,7 @@ class Admin:
 
         return jsonify["auth_token"]
 
-    class APIKey:
+    class ApiKey:
         """
         API Key management class
         """
