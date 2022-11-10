@@ -614,7 +614,7 @@ class Admin:
 
             return response
 
-        def flv(self):
+        def flv(self, monitor_id):
             """
             Get FLV Stream
             Stream type must be FLV.
