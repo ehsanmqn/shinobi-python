@@ -2,6 +2,9 @@ import requests
 import json
 from dataclasses import dataclass
 
+from models.monitor import Monitor
+from models.apikey import ApiKey
+
 class Super:
     """
     Shinobi Super user APIs
