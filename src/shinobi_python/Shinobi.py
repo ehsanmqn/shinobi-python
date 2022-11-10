@@ -53,11 +53,11 @@ class Admin:
     def url(self):
         return f"http://{self.host}:{self.port}?json=true"
 
-    """
-    Login to Shinobi using user credentials
-    When you authenticate with Shinobi it will offer you an Authorization Token. This token is your Session Key as well and can be used as an API Key. This key will remain active for 15 minutes after the last acivity or while your WebSocket is connected.
-    """
     def authenticate(self):
+        """
+        Login to Shinobi using user credentials
+        When you authenticate with Shinobi it will offer you an Authorization Token. This token is your Session Key as well and can be used as an API Key. This key will remain active for 15 minutes after the last acivity or while your WebSocket is connected.
+        """
         url = self.url()
 
         payload = json.dumps({
@@ -81,14 +81,15 @@ class Admin:
 
         return jsonify["auth_token"]
 
-    """
-    API Key management class
-    """
     class APIKey:
         """
-        Get API Keys
+        API Key management class
         """
+
         def list(self):
+            """
+            Get API Keys
+            """
             url = "{}/{}/api/{}/list".format(self.url(), self.token, self.group_key)
 
             payload={}
@@ -101,11 +102,11 @@ class Admin:
 
             return response.json()["keys"]
 
-        """
-        Add an API Key
-        The created key is binded to the user who created it.
-        """
         def add(self, ip, auth_socket=1, get_monitors=1, control_monitors=1, get_logs=1, watch_stream=1, watch_snapshot=1, watch_videos=1, delete_videos=1):
+            """
+            Add an API Key
+            The created key is binded to the user who created it.
+            """
             url = "{}/{}/api/{}/add".format(self.url(), self.token, self.group_key)
 
             payload = json.dumps({
@@ -135,10 +136,10 @@ class Admin:
 
             return response.json()["api"]
 
-        """
-        Delete an API Key
-        """
         def delete(self, code):
+            """
+            Delete an API Key
+            """
             url = "{}/{}/api/{}/delete".format(self.url(), self.token, self.group_key)
 
             payload = json.dumps({
@@ -158,14 +159,14 @@ class Admin:
 
             return True
 
-    """
-    Monitor management class
-    """
     class Monitor:
         """
-        Get all saved monitors
+        Monitor management class
         """
         def list(self):
+            """
+            Get all saved monitors
+            """
             url = "{}/{}/monitor/{}".format(self.url(), self.token, self.group_key)
 
             payload={}
@@ -178,10 +179,10 @@ class Admin:
 
             return response.json()
 
-        """
-         Add a monitor
-        """
         def add(self, uid, name, host, port, username=None, password=None):
+            """
+            Add a monitor
+            """
             url = "{}/{}/configureMonitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload = json.dumps({
@@ -472,10 +473,10 @@ class Admin:
 
             return response.json()["ok"]
 
-        """
-        Update a single monitor by ID
-        """
         def update(self, uid, data):
+            """
+            Update a single monitor by ID
+            """
             url = "{}/{}/configureMonitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload = json.dumps(data)
@@ -491,10 +492,10 @@ class Admin:
 
             return response.json()["ok"]
 
-        """
-        Delete a monitor by ID
-        """
         def delete(self, uid):
+            """
+            Delete a monitor by ID
+            """
             url = "{}/{}/configureMonitor/{}/{}/delete".format(self.url(), self.token, self.group_key, uid)
 
             payload={}
@@ -507,11 +508,11 @@ class Admin:
 
             return response.json()["ok"]
 
-        """
-        Get a single monitor by ID
-        and it will have a set of stream links already pre-built in the streams variable.
-        """
         def get(self, uid):
+            """
+            Get a single monitor by ID
+            and it will have a set of stream links already pre-built in the streams variable.
+            """
             url = "{}/{}/monitor/{}/{}".format(self.url(), self.token, self.group_key, uid)
 
             payload={}
@@ -543,10 +544,13 @@ class Admin:
 
     class Stream:
         """
-        Get JPEG Snapshot
-        Snapshot must be enabled in Monitor Settings.
+        Stream management class
         """
         def jpeg(self, monitor_id):
+            """
+            Get JPEG Snapshot
+            Snapshot must be enabled in Monitor Settings.
+            """
             url = "{}/{}/jpeg/{}/{}/s.jpg".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -559,11 +563,11 @@ class Admin:
 
             return response
 
-        """
-        Get MJPEG Stream
-        Stream type must be MJPEG.
-        """
         def mjpeg(self, monitor_id):
+            """
+            Get MJPEG Stream
+            Stream type must be MJPEG.
+            """
             url = "{}/{}/mjpeg/{}/{}".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -576,11 +580,11 @@ class Admin:
 
             return response
 
-        """
-        Get MJPEG Stream for iframe
-        Stream type must be MJPEG.
-        """
         def mjpeg_iframe(self, monitor_id):
+            """
+            Get MJPEG Stream for iframe
+            Stream type must be MJPEG.
+            """
             url = "{}/{}/mjpeg/{}/{}?full=true".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -593,11 +597,11 @@ class Admin:
 
             return response
 
-        """
-        Get m3u8 for HLS Stream
-        Stream type must be HLS.
-        """
         def hls(self, monitor_id):
+            """
+            Get m3u8 for HLS Stream
+            Stream type must be HLS.
+            """
             url = "{}/{}/hls/{}/{}/s.m3u8".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -610,11 +614,11 @@ class Admin:
 
             return response
 
-        """
-        Get FLV Stream
-        Stream type must be FLV.
-        """
         def flv(self):
+            """
+            Get FLV Stream
+            Stream type must be FLV.
+            """
             url = "{}/{}/flv/{}/{}/s.flv".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -627,11 +631,11 @@ class Admin:
 
             return response
 
-        """
-        Poseidon (MP4) Stream
-        Stream type must be Poesidon.
-        """
         def mp4(self, monitor_id):
+            """
+            Poseidon (MP4) Stream
+            Stream type must be Poesidon.
+            """
             url = "{}/{}/mp4/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id)
 
             payload={}
@@ -644,12 +648,12 @@ class Admin:
 
             return response
 
-        """
-        Get all available h.264 streams in an .m3u8 playlist
-        Get a single monitor's available h.264 streams in an .m3u8 playlist
-        Enable the TV Channel option in your monitor's settings to see their streams in this list.
-        """
         def list(self, monitor_id=None):
+            """
+            Get all available h.264 streams in an .m3u8 playlist
+            Get a single monitor's available h.264 streams in an .m3u8 playlist
+            Enable the TV Channel option in your monitor's settings to see their streams in this list.
+            """
             if monitor_id is None:
                 url = "{}/{}/tvChannels/{}".format(self.url(), self.token, self.group_key)
             else:
@@ -665,11 +669,11 @@ class Admin:
 
             return response.json()
 
-        """
-        Poseidon (MP4) Stream
-        This function provides the link for a Poseidon stream but on a channel aside from the Main one. You can create Stream Channels by opening your Monitor Settings, clicking Options, and then selecting Add Channel.
-        """
         def stream_channels(self, monitor_id, channel):
+            """
+            Poseidon (MP4) Stream
+            This function provides the link for a Poseidon stream but on a channel aside from the Main one. You can create Stream Channels by opening your Monitor Settings, clicking Options, and then selecting Add Channel.
+            """
             url = "{}/{}/mp4/{}/{}/{}/s.mp4".format(self.url(), self.token, self.group_key, monitor_id, channel)
 
             payload={}
